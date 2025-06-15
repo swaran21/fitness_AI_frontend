@@ -1,12 +1,12 @@
+// src/components/ActivityForm.js
 import React, { useState } from "react";
 import { addActivity } from "../services/api";
 
-const ActivityForm = ({ onActivityAdded }) => {
+const ActivityForm = () => {
   const [activity, setActivity] = useState({
     type: "RUNNING",
     duration: "",
     caloriesBurned: "",
-    additionalMetrics: {},
   });
 
   const handleChange = (e) => {
@@ -18,12 +18,10 @@ const ActivityForm = ({ onActivityAdded }) => {
     e.preventDefault();
     try {
       await addActivity(activity);
-      onActivityAdded();
       setActivity({
         type: "RUNNING",
         duration: "",
         caloriesBurned: "",
-        additionalMetrics: {},
       });
     } catch (error) {
       console.error("Failed to add activity:", error);
@@ -33,10 +31,10 @@ const ActivityForm = ({ onActivityAdded }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white dark:bg-gray-800 p-6 rounded-md shadow-md border border-dashed border-gray-400 space-y-4"
+      className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 space-y-6 max-w-md mx-auto mt-8"
     >
-      <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
-        Add Activity
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white text-center mb-4">
+        Track a New Activity
       </h2>
 
       {/* Activity Type */}
@@ -48,7 +46,7 @@ const ActivityForm = ({ onActivityAdded }) => {
           name="type"
           value={activity.type}
           onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+          className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-pink-500 outline-none"
         >
           <option value="RUNNING">Running</option>
           <option value="WALKING">Walking</option>
@@ -66,7 +64,7 @@ const ActivityForm = ({ onActivityAdded }) => {
           name="duration"
           value={activity.duration}
           onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+          className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-pink-500 outline-none"
           required
         />
       </div>
@@ -81,17 +79,19 @@ const ActivityForm = ({ onActivityAdded }) => {
           name="caloriesBurned"
           value={activity.caloriesBurned}
           onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+          className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-pink-500 outline-none"
         />
       </div>
 
       {/* Submit Button */}
-      <button
-        type="submit"
-        className="bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-4 rounded transition"
-      >
-        Add Activity
-      </button>
+      <div className="text-center">
+        <button
+          type="submit"
+          className="bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-6 rounded-lg shadow-sm hover:shadow-md transition duration-300"
+        >
+          Add Activity
+        </button>
+      </div>
     </form>
   );
 };
