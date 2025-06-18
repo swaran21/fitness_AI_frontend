@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { AuthProvider } from "react-oauth2-code-pkce";
 import { authConfig } from "./authConfig"; // adjust path as needed
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

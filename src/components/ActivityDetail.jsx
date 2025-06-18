@@ -12,9 +12,8 @@ const ActivityDetail = () => {
     const fetchActivityDetail = async () => {
       try {
         const response = await getActivityDetail(id);
-        console.log("Fetched activity detail:", response.data);
         setActivity(response.data);
-        setRecommendation(response.data.recommendation); // ✅ just the string
+        setRecommendation(response.data.recommendation);
       } catch (error) {
         console.error("Error fetching activity details:", error);
         setError("Failed to load activity details.");
@@ -34,20 +33,41 @@ const ActivityDetail = () => {
 
   if (!activity) {
     return (
-      <div className="text-center py-20 text-gray-600 dark:text-gray-300">
-        Loading activity details...
+      <div className="text-center py-20">
+        {/* Tailwind loading spinner */}
+        <svg
+          className="mx-auto h-10 w-10 animate-spin text-pink-600"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          />
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+          />
+        </svg>
+        <p className="mt-4 text-gray-600 dark:text-gray-300">
+          Loading activity details...
+        </p>
       </div>
     );
   }
 
   return (
     <div className="max-w-3xl mx-auto p-6 mt-10 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md">
-      {/* Header */}
       <h2 className="text-2xl font-bold text-pink-600 dark:text-pink-400 text-center mb-6">
         Activity Details
       </h2>
 
-      {/* Summary Section */}
       <div className="space-y-2 text-gray-800 dark:text-gray-200">
         <p>
           <span className="font-semibold">Type:</span> {activity.type || "N/A"}
@@ -70,26 +90,25 @@ const ActivityDetail = () => {
 
       <hr className="my-6 border-gray-300 dark:border-gray-600" />
 
-      {/* AI Recommendation */}
       {recommendation && (
         <div className="space-y-6">
           <h3 className="text-xl font-semibold text-pink-600 dark:text-pink-400">
             AI Recommendation
           </h3>
 
-          {/* Analysis (actual recommendation text) */}
           <div>
-            <h4 className="text-lg font-medium mb-1">Analysis</h4>
+            <h4 className="text-lg font-medium mb-2">Analysis</h4>
             <p className="whitespace-pre-wrap text-gray-700 dark:text-gray-300">
               {recommendation}
             </p>
             <hr className="my-4 border-gray-300 dark:border-gray-600" />
           </div>
 
-          {/* Improvements */}
           {activity.improvements?.length > 0 && (
-            <div>
-              <h4 className="text-lg font-medium mb-1">Improvements</h4>
+            <div className="mt-6">
+              <h4 className="text-lg font-medium mb-2 text-pink-600 dark:text-pink-400">
+                Improvements
+              </h4>
               <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
                 {activity.improvements.map((item, index) => (
                   <li key={index}>{item}</li>
@@ -99,10 +118,11 @@ const ActivityDetail = () => {
             </div>
           )}
 
-          {/* Suggestions */}
           {activity.suggestions?.length > 0 && (
-            <div>
-              <h4 className="text-lg font-medium mb-1">Suggestions</h4>
+            <div className="mt-6">
+              <h4 className="text-lg font-medium mb-2 text-pink-600 dark:text-pink-400">
+                Suggestions
+              </h4>
               <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
                 {activity.suggestions.map((item, index) => (
                   <li key={index}>{item}</li>
@@ -112,10 +132,11 @@ const ActivityDetail = () => {
             </div>
           )}
 
-          {/* Safety Guidelines */}
           {activity.safety?.length > 0 && (
-            <div>
-              <h4 className="text-lg font-medium mb-1">Safety Guidelines</h4>
+            <div className="mt-6">
+              <h4 className="text-lg font-medium mb-2 text-pink-600 dark:text-pink-400">
+                Safety Guidelines
+              </h4>
               <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
                 {activity.safety.map((item, index) => (
                   <li key={index}>{item}</li>
